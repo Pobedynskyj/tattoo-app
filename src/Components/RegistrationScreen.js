@@ -16,6 +16,8 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
+SplashScreen.preventAutoHideAsync();
+
 const initialState = {
   name: "",
   email: "",
@@ -29,6 +31,19 @@ export const RegistrationScreen = () => {
     window: Dimensions.get("window"),
     screen: Dimensions.get("screen"),
   });
+  const [fontsLoaded] = useFonts({
+    MiltonianTattoo: require("../fonts/MiltonianTattoo-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   useEffect(() => {
     const subscription = Dimensions.addEventListener(
@@ -62,6 +77,7 @@ export const RegistrationScreen = () => {
                 ...styles.form,
                 marginBottom: isKeyboardShow ? 10 : "50%",
               }}
+              onLayout={onLayoutRootView}
             >
               <Text style={styles.title}>ADAS Tattoo</Text>
               <View style={styles.inputBox}>
@@ -134,8 +150,8 @@ const styles = StyleSheet.create({
     color: "#fff",
     justifyContent: "center",
     opacity: 0.5,
-
     padding: 10,
+    fontFamily: "MiltonianTattoo",
   },
   bgcImage: {
     flex: 1,
