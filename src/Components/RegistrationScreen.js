@@ -16,7 +16,7 @@ import {
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 const initialState = {
   name: "",
@@ -54,7 +54,7 @@ export const RegistrationScreen = () => {
     );
 
     return () => subscription?.remove();
-  });
+  }, []);
 
   const keyboardHide = () => {
     setIsKeyBoardShow(false);
