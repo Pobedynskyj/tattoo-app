@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -10,11 +10,7 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
 } from "react-native";
-
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 
 // SplashScreen.preventAutoHideAsync();
 
@@ -24,37 +20,9 @@ const initialState = {
   password: "",
 };
 
-export const RegistrationScreen = () => {
+export const RegistrationScreen = ({ dimensions }) => {
   const [isKeyboardShow, setIsKeyBoardShow] = useState(false);
   const [regState, setRegState] = useState(initialState);
-  const [dimensions, setDimensions] = useState({
-    window: Dimensions.get("window"),
-    screen: Dimensions.get("screen"),
-  });
-  const [fontsLoaded] = useFonts({
-    MiltonianTattoo: require("../fonts/MiltonianTattoo-Regular.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener(
-      "change",
-      ({ window, screen }) => {
-        setDimensions({ window, screen });
-      }
-    );
-
-    return () => subscription?.remove();
-  }, []);
 
   const keyboardHide = () => {
     setIsKeyBoardShow(false);
@@ -77,7 +45,6 @@ export const RegistrationScreen = () => {
                 ...styles.form,
                 marginBottom: isKeyboardShow ? 10 : "50%",
               }}
-              onLayout={onLayoutRootView}
             >
               <Text style={styles.title}>ADAS Tattoo</Text>
               <View style={styles.inputBox}>
@@ -90,9 +57,9 @@ export const RegistrationScreen = () => {
                   onFocus={() => {
                     setIsKeyBoardShow(true);
                   }}
-                  onChangeText={(value) =>
-                    setRegState((prevState) => ({ ...prevState, name: value }))
-                  }
+                  onChangeText={(value) => {
+                    setRegState((prevState) => ({ ...prevState, name: value }));
+                  }}
                 />
                 <Text style={styles.inputTitle}>EMAIL</Text>
                 <TextInput
@@ -103,9 +70,12 @@ export const RegistrationScreen = () => {
                   onFocus={() => {
                     setIsKeyBoardShow(true);
                   }}
-                  onChangeText={(value) =>
-                    setRegState((prevState) => ({ ...prevState, email: value }))
-                  }
+                  onChangeText={(value) => {
+                    setRegState((prevState) => ({
+                      ...prevState,
+                      email: value,
+                    }));
+                  }}
                 />
                 <Text style={styles.inputTitle}>PASSWORD</Text>
                 <TextInput
@@ -116,12 +86,12 @@ export const RegistrationScreen = () => {
                   onFocus={() => {
                     setIsKeyBoardShow(true);
                   }}
-                  onChangeText={(value) =>
+                  onChangeText={(value) => {
                     setRegState((prevState) => ({
                       ...prevState,
                       password: value,
-                    }))
-                  }
+                    }));
+                  }}
                 />
 
                 <TouchableOpacity

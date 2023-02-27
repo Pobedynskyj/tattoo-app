@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useState} from "react";
 import {
   StyleSheet,
   Text,
@@ -10,35 +10,16 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
-  Dimensions,
 } from "react-native";
-
-import { useFonts } from "expo-font";
-import * as SplashScreen from "expo-splash-screen";
 
 const initialState = {
   email: "",
   password: "",
 };
 
-export const LoginScreen = () => {
+export const LoginScreen = ({dimensions}) => {
   const [isKeyboardShow, setIsKeyBoardShow] = useState(false);
   const [logState, setLogState] = useState(initialState);
-  const [dimensions, setDimensions] = useState({
-    window: Dimensions.get("window"),
-    screen: Dimensions.get("screen"),
-  });
-
-  useEffect(() => {
-    const subscription = Dimensions.addEventListener(
-      "change",
-      ({ window, screen }) => {
-        setDimensions({ window, screen });
-      }
-    );
-
-    return () => subscription?.remove();
-  });
 
   const keyboardHide = () => {
     setIsKeyBoardShow(false);
@@ -74,7 +55,7 @@ export const LoginScreen = () => {
                     setIsKeyBoardShow(true);
                   }}
                   onChangeText={(value) =>
-                    setLogState((prevState) => ({ ...prevState, email: value }))
+                    {setLogState((prevState) => ({ ...prevState, email: value }))}
                   }
                 />
                 <Text style={styles.inputTitle}>PASSWORD</Text>
@@ -87,10 +68,10 @@ export const LoginScreen = () => {
                     setIsKeyBoardShow(true);
                   }}
                   onChangeText={(value) =>
-                    setLogState((prevState) => ({
+                   { setLogState((prevState) => ({
                       ...prevState,
                       password: value,
-                    }))
+                    }))}
                   }
                 />
 
