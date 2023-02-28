@@ -12,8 +12,6 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-// SplashScreen.preventAutoHideAsync();
-
 const initialState = {
   name: "",
   email: "",
@@ -149,6 +147,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 20,
     marginBottom: 5,
+    fontFamily: "MiltonianTattoo",
   },
   btn: {
     marginBottom: 10,
@@ -171,5 +170,6 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 20,
     color: "#000",
+    fontFamily: "MiltonianTattoo",
   },
 });

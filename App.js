@@ -1,24 +1,15 @@
 import { Dimensions, View } from "react-native";
-import { useFonts } from "expo-font";
 
-import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import HomeScreen from "./src/Components/Home";
+import { RegistrationScreen } from "./src/Components/RegistrationScreen";
+import { LoginScreen } from "./src/Components/LoginScreen";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    MiltonianTattoo: require("./src/fonts/MiltonianTattoo-Regular.ttf"),
-  });
-
-  const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
-
-  if (!fontsLoaded) {
-    return null;
-  }
-
   const [dimensions, setDimensions] = useState({
     window: Dimensions.get("window"),
     screen: Dimensions.get("screen"),
@@ -35,20 +26,20 @@ export default function App() {
   }, []);
 
   return (
-    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen name="Home">
-            {() => <HomeScreen dimensions={dimensions} />}
-          </Stack.Screen>
-          <Stack.Screen name="Registration">
-            {() => <RegistrationScreen dimensions={dimensions} />}
-          </Stack.Screen>
-          <Stack.Screen name="Login">
-            {() => <LoginScreen dimensions={dimensions} />}
-          </Stack.Screen>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home">
+          {({ navigation }) => (
+            <HomeScreen dimensions={dimensions} navigation={navigation} />
+          )}
+        </Stack.Screen>
+        <Stack.Screen name="Registration">
+          {() => <RegistrationScreen dimensions={dimensions} />}
+        </Stack.Screen>
+        <Stack.Screen name="Login">
+          {() => <LoginScreen dimensions={dimensions} />}
+        </Stack.Screen>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }

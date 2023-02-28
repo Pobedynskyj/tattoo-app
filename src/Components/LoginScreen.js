@@ -1,4 +1,4 @@
-import { useState} from "react";
+import { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -17,7 +17,7 @@ const initialState = {
   password: "",
 };
 
-export const LoginScreen = ({dimensions}) => {
+export const LoginScreen = ({ dimensions }) => {
   const [isKeyboardShow, setIsKeyBoardShow] = useState(false);
   const [logState, setLogState] = useState(initialState);
 
@@ -54,9 +54,12 @@ export const LoginScreen = ({dimensions}) => {
                   onFocus={() => {
                     setIsKeyBoardShow(true);
                   }}
-                  onChangeText={(value) =>
-                    {setLogState((prevState) => ({ ...prevState, email: value }))}
-                  }
+                  onChangeText={(value) => {
+                    setLogState((prevState) => ({
+                      ...prevState,
+                      email: value,
+                    }));
+                  }}
                 />
                 <Text style={styles.inputTitle}>PASSWORD</Text>
                 <TextInput
@@ -67,12 +70,12 @@ export const LoginScreen = ({dimensions}) => {
                   onFocus={() => {
                     setIsKeyBoardShow(true);
                   }}
-                  onChangeText={(value) =>
-                   { setLogState((prevState) => ({
+                  onChangeText={(value) => {
+                    setLogState((prevState) => ({
                       ...prevState,
                       password: value,
-                    }))}
-                  }
+                    }));
+                  }}
                 />
 
                 <TouchableOpacity
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     justifyContent: "center",
     opacity: 0.5,
-
+    fontFamily: "MiltonianTattoo",
     padding: 10,
   },
   bgcImage: {
@@ -130,6 +133,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 20,
     marginBottom: 5,
+    fontFamily: "MiltonianTattoo",
   },
   btn: {
     marginBottom: 10,
@@ -152,5 +156,6 @@ const styles = StyleSheet.create({
   textBtn: {
     fontSize: 20,
     color: "#000",
+    fontFamily: "MiltonianTattoo",
   },
 });

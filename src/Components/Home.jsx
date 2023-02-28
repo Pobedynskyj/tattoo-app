@@ -6,30 +6,51 @@ import {
   View,
 } from "react-native";
 
+import { useFonts } from "expo-font";
+
+import * as SplashScreen from "expo-splash-screen";
+import { useCallback } from "react";
+
 export default function HomeScreen({ navigation }) {
+  const [fontsLoaded] = useFonts({
+    MiltonianTattoo: require("../fonts/MiltonianTattoo-Regular.ttf"),
+  });
+
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <>
-      <ImageBackground
-        source={require("../Images/bg.jpeg")}
-        resizeMode={"cover"}
-        style={styles.bgc}
-      >
-        <Text style={styles.title}>ADAS Tattoo</Text>
-        <View style={styles.box}>
-          <TouchableOpacity
-            style={styles.navBtn}
-            onPress={() => navigation.navigate("Registration")}
-          >
-            <Text style={styles.btnTxt}>Registration</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.navBtn}
-            onPress={() => navigation.navigate("Login")}
-          >
-            <Text style={styles.btnTxt}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </ImageBackground>
+      <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+        <ImageBackground
+          source={require("../Images/bg.jpeg")}
+          resizeMode={"cover"}
+          style={styles.bgc}
+        >
+          <Text style={styles.title}>ADAS Tattoo</Text>
+          <View style={styles.box}>
+            <TouchableOpacity
+              style={styles.navBtn}
+              onPress={() => navigation.navigate("Registration")}
+            >
+              <Text style={styles.btnTxt}>Registration</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.navBtn}
+              onPress={() => navigation.navigate("Login")}
+            >
+              <Text style={styles.btnTxt}>Login</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </View>
     </>
   );
 }
@@ -39,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     alignItems: "center",
     color: "#fff",
-
+    fontFamily: "MiltonianTattoo",
     opacity: 0.5,
     backgroundColor: "#000",
     padding: 10,
@@ -61,6 +82,7 @@ const styles = StyleSheet.create({
   btnTxt: {
     fontSize: 20,
     color: "#000",
+    fontFamily: "MiltonianTattoo",
   },
   bgc: {
     flex: 1,
