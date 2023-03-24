@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   form: {
-    marginHorizontal: 50,
+    marginHorizontal: 48,
     backgroundColor: "grey",
     padding: 10,
     opacity: 0.8,
