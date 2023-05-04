@@ -10,14 +10,17 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   TouchableWithoutFeedback,
+  Button,
 } from "react-native";
+
+import { RegistrationScreen } from "./RegistrationScreen";
 
 const initialState = {
   email: "",
   password: "",
 };
 
-export const LoginScreen = ({ dimensions }) => {
+export const LoginScreen = ({ dimensions, navigation }) => {
   const [isKeyboardShow, setIsKeyBoardShow] = useState(false);
   const [logState, setLogState] = useState(initialState);
 
@@ -85,6 +88,10 @@ export const LoginScreen = ({ dimensions }) => {
                 >
                   <Text style={styles.textBtn}>SIGN UP</Text>
                 </TouchableOpacity>
+                <Button
+                  onPress={() => navigation.navigate("Registration")}
+                  title="Go to register"
+                />
               </View>
             </View>
           </KeyboardAvoidingView>

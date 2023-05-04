@@ -28,15 +28,30 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home">
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Home"
+        >
           {({ navigation }) => (
             <HomeScreen dimensions={dimensions} navigation={navigation} />
           )}
         </Stack.Screen>
-        <Stack.Screen name="Registration">
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Registration"
+        >
           {() => <RegistrationScreen dimensions={dimensions} />}
         </Stack.Screen>
-        <Stack.Screen name="Login">
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Login"
+        >
           {() => <LoginScreen dimensions={dimensions} />}
         </Stack.Screen>
       </Stack.Navigator>
